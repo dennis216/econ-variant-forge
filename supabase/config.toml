@@ -2,3 +2,6 @@ project_id = "gltztywymgtujsblgpvn"
 
 [functions.generate-variants]
 verify_jwt = false
+
+[functions.extract-variables]
+verify_jwt = false
