@@ -1,11 +1,11 @@
-import { Sparkles, AlertCircle, Lightbulb } from "lucide-react";
+import { Sparkles, AlertCircle, Lightbulb, FileSearch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXAMPLE_QUESTIONS } from "@/lib/types";
 
 interface InputPanelProps {
   value: string;
   onChange: (value: string) => void;
-  onGenerate: () => void;
+  onExtract: () => void;
   isLoading: boolean;
   error: string | null;
 }
@@ -13,24 +13,25 @@ interface InputPanelProps {
 export function InputPanel({
   value,
   onChange,
-  onGenerate,
+  onExtract,
   isLoading,
   error,
 }: InputPanelProps) {
   return (
     <div className="flex flex-col h-full p-6">
-      {/* Section heading */}
-      <div className="mb-4">
-        <h2 className="font-display text-xl font-semibold text-foreground">
-          Master Question
-        </h2>
-        <p className="text-sm text-muted-foreground mt-1">
-          Enter your economics exam question. LaTeX notation (
-          <code className="text-xs bg-secondary px-1 py-0.5 rounded">
-            $...$
-          </code>
-          ) is supported.
-        </p>
+      {/* Stage indicator */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">
+          1
+        </div>
+        <div>
+          <h2 className="font-display text-xl font-semibold text-foreground">
+            Paste Raw Question
+          </h2>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Paste text from a PDF or exam paper. The AI will extract variables and context.
+          </p>
+        </div>
       </div>
 
       {/* Textarea */}
@@ -38,7 +39,7 @@ export function InputPanel({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="flex-1 min-h-[180px] lg:min-h-0 p-4 rounded-lg border border-input bg-card text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring/50 font-mono text-sm leading-relaxed placeholder:text-muted-foreground/60 transition-shadow"
-        placeholder={`e.g., In a closed economy, the consumption function is C = 200 + 0.75Y, planned investment I = 150, and government spending G = 100.\n\nCalculate the equilibrium level of GDP using the Keynesian Cross model.`}
+        placeholder={`Paste your raw exam text here...\n\ne.g., In a closed economy, the consumption function is C = 200 + 0.75Y, planned investment I = 150, and government spending G = 100. Calculate the equilibrium level of GDP using the Keynesian Cross model.`}
       />
 
       {/* Error message */}
@@ -49,15 +50,15 @@ export function InputPanel({
         </div>
       )}
 
-      {/* Generate button */}
+      {/* Extract button */}
       <Button
-        onClick={onGenerate}
+        onClick={onExtract}
         disabled={isLoading || !value.trim()}
         className="mt-4 h-11 font-semibold gap-2"
         size="lg"
       >
-        <Sparkles className="w-4 h-4" />
-        {isLoading ? "Generating Variants…" : "Generate Variants"}
+        <FileSearch className="w-4 h-4" />
+        {isLoading ? "Extracting Data…" : "Extract Data"}
       </Button>
 
       {/* Example questions */}
