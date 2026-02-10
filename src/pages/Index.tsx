@@ -1,12 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Header } from "@/components/Header";
+import { InputPanel } from "@/components/InputPanel";
+import { OutputPanel } from "@/components/OutputPanel";
+import { useVariantGeneration } from "@/hooks/useVariantGeneration";
 
 const Index = () => {
+  const [masterQuestion, setMasterQuestion] = useState("");
+  const { result, isLoading, error, generate } = useVariantGeneration();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="flex flex-col h-screen bg-background overflow-hidden">
+      <Header />
+
+      <main className="flex flex-col lg:flex-row flex-1 min-h-0">
+        {/* Input panel */}
+        <aside className="w-full lg:w-[38%] xl:w-[35%] border-b lg:border-b-0 lg:border-r border-border overflow-y-auto">
+          <InputPanel
+            value={masterQuestion}
+            onChange={setMasterQuestion}
+            onGenerate={() => generate(masterQuestion)}
+            isLoading={isLoading}
+            error={error}
+          />
+        </aside>
+
+        {/* Output panel */}
+        <section className="flex-1 overflow-y-auto">
+          <OutputPanel result={result} isLoading={isLoading} />
+        </section>
+      </main>
     </div>
   );
 };
