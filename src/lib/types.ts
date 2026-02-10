@@ -33,6 +33,28 @@ export interface VariantResult {
   variants: Variant[];
 }
 
+// Stage 1: Extracted data types
+export interface ExtractedVariable {
+  name: string;
+  symbol: string;
+  value: string;
+  unit: string;
+}
+
+export interface ExtractedContext {
+  subject: string;
+  model: string;
+  marketType: string;
+  country: string;
+}
+
+export interface ExtractedData {
+  context: ExtractedContext;
+  variables: ExtractedVariable[];
+  formula: string;
+  questionText: string;
+}
+
 export const TIER_LABELS: Record<VariantTier, string> = {
   bronze: "Bronze — Surface Level",
   silver: "Silver — Contextual Shift",
